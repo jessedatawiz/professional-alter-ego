@@ -29,14 +29,25 @@ class ToolLike(Protocol):
 
 class ChatAgent:
 
-    def __init__(self, profile: ProfileLike, tools: list[ToolLike],
-                 providers: list[Provider],
-                 system_prompt_template: str | None = None):
+    def __init__(
+        self,
+        profile: ProfileLike,
+        tools: list[ToolLike],
+        providers: list[Provider],
+        system_prompt_template: str | None = None,
+        max_message_length: int = 1000,
+        max_session_messages: int = 20,
+        token_policy_enabled: bool = True,
+    ):
         self.profile = profile
         self.tools = tools
         self.providers = providers
         self._tool_map = {t.name: t for t in tools}
         self.system_prompt_template = system_prompt_template
+        self.max_message_length = max_message_length
+        self.max_session_messages = max_session_messages
+        self.token_policy_enabled = token_policy_enabled
+        self._session_count = 0
 
     def system_prompt(self):
         return self.system_prompt_template.format(
@@ -85,6 +96,19 @@ class ChatAgent:
         raise RuntimeError("All providers failed")
 
     def chat(self, message, history):
+        if self.token_policy_enabled:
+            if len(message) > self.max_message_length:
+                return (
+                    "Your message is too long. Please keep questions concise "
+                    "and relevant to the professional profile."
+                )
+            if self._session_count >= self.max_session_messages:
+                return (
+                    "This conversation has reached its session limit. "
+                    "Please start a new session if you need further assistance."
+                )
+            self._session_count += 1
+
         messages = (
             [{"role": "system", "content": self.system_prompt()}]
             + history
