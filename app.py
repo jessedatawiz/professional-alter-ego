@@ -1,8 +1,9 @@
 import gradio as gr
+from openai import OpenAI
 from typing import Protocol
 
 from config import Config
-from agent import ChatAgent
+from agent import ChatAgent, Provider
 from user_profile import Profile
 from pushover import PushoverClient
 from tools import Tool
@@ -74,7 +75,19 @@ def main():
     pushover = PushoverClient(cfg.pushover_token, cfg.pushover_user)
     profile = Profile(cfg.profile_name, cfg.linkedin_path, cfg.summary_path)
     tools = build_tools(pushover)
-    agent = ChatAgent(profile, tools, cfg.openai_model, cfg.openai_reasoning_effort)
+
+    groq_client = OpenAI(
+        base_url="https://api.groq.com/openai/v1",
+        api_key=cfg.groq_api_key,
+    )
+    openai_client = OpenAI()
+
+    providers = [
+        Provider(client=groq_client, model=cfg.groq_model, name="groq"),
+        Provider(client=openai_client, model=cfg.openai_model, name="openai",
+                 reasoning_effort=cfg.openai_reasoning_effort),
+    ]
+    agent = ChatAgent(profile, tools, providers)
     gr.ChatInterface(agent.chat).launch()
 
 
