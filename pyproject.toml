@@ -1,7 +1,7 @@
 [project]
-name = "agents"
+name = "professional-alter-ego"
 version = "0.1.0"
-description = "Add your description here"
+description = "A chatbot that emulates my professional me!"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
