@@ -17,3 +17,12 @@ class Config:
         self.linkedin_path = os.getenv("LINKEDIN_PATH", "me/linkedin.pdf")
         self.summary_path = os.getenv("SUMMARY_PATH", "me/summary.txt")
         self.system_prompt_path = os.getenv("SYSTEM_PROMPT_PATH", "prompts/system.md")
+        self.max_message_length = int(
+            os.getenv("MAX_MESSAGE_LENGTH", "1000")
+        )
+        self.max_session_messages = int(
+            os.getenv("MAX_SESSION_MESSAGES", "20")
+        )
+        self.token_policy_enabled = (
+            os.getenv("TOKEN_POLICY_ENABLED", "true").lower() == "true"
+        )

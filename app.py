@@ -91,7 +91,15 @@ def main():
     with open(cfg.system_prompt_path, "r") as f:
         system_prompt_template = f.read()
 
-    agent = ChatAgent(profile, tools, providers, system_prompt_template)
+    agent = ChatAgent(
+        profile,
+        tools,
+        providers,
+        system_prompt_template,
+        max_message_length=cfg.max_message_length,
+        max_session_messages=cfg.max_session_messages,
+        token_policy_enabled=cfg.token_policy_enabled,
+    )
     gr.ChatInterface(agent.chat).launch()
 
 
