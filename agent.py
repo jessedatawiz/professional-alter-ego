@@ -1,11 +1,26 @@
 import json
+from typing import Protocol
 
 from openai import OpenAI
 
 
+class ProfileLike(Protocol):
+    name: str
+    summary: str
+    linkedin: str
+
+
+class ToolLike(Protocol):
+    name: str
+
+    def to_schema(self) -> dict: ...
+
+    def execute(self, **kwargs) -> dict: ...
+
+
 class ChatAgent:
 
-    def __init__(self, profile, tools, model, reasoning_effort=None):
+    def __init__(self, profile: ProfileLike, tools: list[ToolLike], model: str, reasoning_effort: str | None = None):
         self.openai = OpenAI()
         self.profile = profile
         self.tools = tools

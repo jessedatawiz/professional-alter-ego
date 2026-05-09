@@ -1,4 +1,5 @@
 import gradio as gr
+from typing import Protocol
 
 import config
 from agent import ChatAgent
@@ -7,7 +8,12 @@ from pushover import PushoverClient
 from tools import Tool
 
 
-def build_tools(pushover):
+class Notifiable(Protocol):
+
+    def send(self, message: str) -> None: ...
+
+
+def build_tools(pushover: Notifiable):
     record_user_details = Tool(
         name="record_user_details",
         description=(
