@@ -2,12 +2,15 @@ import os
 
 from dotenv import load_dotenv
 
-load_dotenv(override=True)
 
-PUSHOVER_TOKEN = os.getenv("PUSHOVER_TOKEN")
-PUSHOVER_USER = os.getenv("PUSHOVER_USER")
-OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
-OPENAI_REASONING_EFFORT = os.getenv("OPENAI_REASONING_EFFORT")
-PROFILE_NAME = os.getenv("PROFILE_NAME", "John Doe")
-LINKEDIN_PATH = os.getenv("LINKEDIN_PATH", "me/linkedin.pdf")
-SUMMARY_PATH = os.getenv("SUMMARY_PATH", "me/summary.txt")
+class Config:
+
+    def __init__(self):
+        load_dotenv(override=True)
+        self.pushover_token = os.getenv("PUSHOVER_TOKEN")
+        self.pushover_user = os.getenv("PUSHOVER_USER")
+        self.openai_model = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+        self.openai_reasoning_effort = os.getenv("OPENAI_REASONING_EFFORT")
+        self.profile_name = os.getenv("PROFILE_NAME", "John Doe")
+        self.linkedin_path = os.getenv("LINKEDIN_PATH", "me/linkedin.pdf")
+        self.summary_path = os.getenv("SUMMARY_PATH", "me/summary.txt")

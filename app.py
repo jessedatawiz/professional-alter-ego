@@ -1,7 +1,7 @@
 import gradio as gr
 from typing import Protocol
 
-import config
+from config import Config
 from agent import ChatAgent
 from user_profile import Profile
 from pushover import PushoverClient
@@ -70,10 +70,11 @@ def build_tools(pushover: Notifiable):
 
 
 def main():
-    pushover = PushoverClient(config.PUSHOVER_TOKEN, config.PUSHOVER_USER)
-    profile = Profile(config.PROFILE_NAME, config.LINKEDIN_PATH, config.SUMMARY_PATH)
+    cfg = Config()
+    pushover = PushoverClient(cfg.pushover_token, cfg.pushover_user)
+    profile = Profile(cfg.profile_name, cfg.linkedin_path, cfg.summary_path)
     tools = build_tools(pushover)
-    agent = ChatAgent(profile, tools, config.OPENAI_MODEL, config.OPENAI_REASONING_EFFORT)
+    agent = ChatAgent(profile, tools, cfg.openai_model, cfg.openai_reasoning_effort)
     gr.ChatInterface(agent.chat).launch()
 
 
