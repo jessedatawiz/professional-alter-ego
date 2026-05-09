@@ -14,37 +14,6 @@ resolution-markers = [
 ]
 
 [[package]]
-name = "agents"
-version = "0.1.0"
-source = { virtual = "." }
-dependencies = [
-    { name = "gradio" },
-    { name = "openai" },
-    { name = "openai-agents" },
-    { name = "pypdf" },
-    { name = "python-dotenv" },
-    { name = "requests" },
-]
-
-[package.dev-dependencies]
-dev = [
-    { name = "ipykernel" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "gradio", specifier = "==6.14.0" },
-    { name = "openai", specifier = "==2.36.0" },
-    { name = "openai-agents", specifier = "==0.17.0" },
-    { name = "pypdf", specifier = "==6.10.2" },
-    { name = "python-dotenv", specifier = "==1.2.2" },
-    { name = "requests", specifier = "==2.33.1" },
-]
-
-[package.metadata.requires-dev]
-dev = [{ name = "ipykernel", specifier = ">=6.29.5" }]
-
-[[package]]
 name = "annotated-doc"
 version = "0.0.4"
 source = { registry = "https://pypi.org/simple" }
@@ -1344,6 +1313,37 @@ sdist = { url = "https://files.pythonhosted.org/packages/9f/4a/0883b8e3802965322
 wheels = [
     { url = "https://files.pythonhosted.org/packages/75/a6/a0a304dc33b49145b21f4808d763822111e67d1c3a32b524a1baf947b6e1/platformdirs-4.9.6-py3-none-any.whl", hash = "sha256:e61adb1d5e5cb3441b4b7710bea7e4c12250ca49439228cc1021c00dcfac0917", size = 21348, upload-time = "2026-04-09T00:04:09.463Z" },
 ]
+
+[[package]]
+name = "professional-alter-ego"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "gradio" },
+    { name = "openai" },
+    { name = "openai-agents" },
+    { name = "pypdf" },
+    { name = "python-dotenv" },
+    { name = "requests" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "ipykernel" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "gradio", specifier = "==6.14.0" },
+    { name = "openai", specifier = "==2.36.0" },
+    { name = "openai-agents", specifier = "==0.17.0" },
+    { name = "pypdf", specifier = "==6.10.2" },
+    { name = "python-dotenv", specifier = "==1.2.2" },
+    { name = "requests", specifier = "==2.33.1" },
+]
+
+[package.metadata.requires-dev]
+dev = [{ name = "ipykernel", specifier = ">=6.29.5" }]
 
 [[package]]
 name = "prompt-toolkit"
