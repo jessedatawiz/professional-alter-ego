@@ -1,0 +1,117 @@
+================================================================================
+                           JESSE RODRIGUES
+          AI Project Owner | Data Scientist | MLOps Engineer
+================================================================================
+
+CONTACT
+  jessee.orodrigues@gmail.com
+  linkedin.com/in/jessedatascience
+
+================================================================================
+PROFESSIONAL SUMMARY
+================================================================================
+
+Data scientist and AI engineer with 3+ years of experience building production 
+ML systems, agentic workflows, and LLM-based solutions. Expertise in MLOps 
+infrastructure (BigQuery, Dataform, Streamlit), Python analytics, and ML-driven 
+product development. Currently leading AI initiatives at EBAC, architecting 
+multi-bot ecosystems and performance analytics pipelines.
+
+================================================================================
+TECHNICAL SKILLS
+================================================================================
+
+AI & LLMs
+  • LLM architectures, prompt engineering, agentic workflows, LLM-as-judge 
+    evaluation
+  • Fine-tuning, embeddings, RAG systems, chatbot design & conversation flows
+
+Data & MLOps
+  • BigQuery optimization, Dataform (dbt), incremental data models, cost 
+    reduction
+  • Streamlit dashboards, automated reporting, BI infrastructure
+  • ML feature engineering, lead scoring, statistical analysis, time-series 
+    modeling
+
+Programming & Tools
+  • Python (pandas, NumPy, scikit-learn, matplotlib), SQL (advanced), Jira
+  • Cloud platforms: Google Cloud (BigQuery, Cloud Run), Azure ML, AWS SageMaker
+  • DevOps/Infrastructure: Git, Docker, CI/CD fundamentals, Infrastructure 
+    as Code
+
+================================================================================
+EXPERIENCE
+================================================================================
+
+AI PROJECT OWNER
+EBAC (Escola Britânica de Artes Criativas e Tecnologia)
+Feb 2026 – Present
+
+  • Architected and deployed multi-bot ecosystem (island bots) for acquisition 
+    funnels (Organic, Brand, Paid Social)
+  • Implemented LLMOps best practices: system prompt versioning, bot 
+    performance evaluation frameworks, conversation flow optimization
+  • Led cross-functional coordination with IT team on bot deployment, prompt 
+    strategies, and lead qualification pipelines
+  • Designed user journey mapping and backlog refinement processes in Jira
+
+SENIOR DATA SCIENTIST
+EBAC
+Feb 2025 – Present
+
+  • Built and optimized lead scoring models; engineered ML features from 
+    behavioral data (calls, messages, GA4 events)
+  • Optimized BigQuery costs through partition filtering and incremental 
+    Dataform models; reduced query latency by 40%
+  • Developed statistical analysis frameworks and dashboards for sales team 
+    performance monitoring
+  • Implemented LLM-as-judge evaluation systems for chatbot QA and performance 
+    assessment
+
+JUNIOR DATA SCIENTIST
+EBAC
+Dec 2023 – Feb 2025
+
+  • Built foundational data pipeline infrastructure: Dataform incremental 
+    tables, BigQuery cost optimization, UTM-based channel classification
+  • Developed Python lead conversion analytics with time-to-pull metrics and 
+    statistical rigor
+  • Designed Sankey diagram visualizations for bot conversion funnels and 
+    performance reporting
+
+COMPUTATIONAL PHYSICS RESEARCHER
+Universidade Federal de Minas Gerais
+Apr 2021 – Jun 2023
+
+  • Developed numerical computing and statistical modeling in Python; explored 
+    quantum computing materials
+
+DATA SCIENTIST (Freelance)
+Jun 2023 – Sep 2023
+
+  • Project developed in partnership with post-graduate researcher at Fiocruz
+
+================================================================================
+EDUCATION
+================================================================================
+
+Master's in Physics
+Universidade Federal de Minas Gerais (2021–2022)
+
+Professional Diploma, Data Science
+EBAC (2023)
+
+Bachelor's in Physics
+Federal University of Ceará (2016–2020)
+
+================================================================================
+CERTIFICATIONS
+================================================================================
+
+  • Python for Data Analysis
+  • Python Essentials for MLOps
+  • MLOps Platforms: Amazon SageMaker & Azure ML
+  • Advanced SQL
+  • DevOps, DataOps, MLOps
+
+================================================================================
