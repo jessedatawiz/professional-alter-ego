@@ -1,4 +1,5 @@
 import json
+from dataclasses import dataclass
 from typing import Protocol
 
 from openai import OpenAI
@@ -8,6 +9,14 @@ class ProfileLike(Protocol):
     name: str
     summary: str
     linkedin: str
+
+
+@dataclass
+class Provider:
+    client: OpenAI
+    model: str
+    name: str = ""
+    reasoning_effort: str | None = None
 
 
 class ToolLike(Protocol):
@@ -20,12 +29,11 @@ class ToolLike(Protocol):
 
 class ChatAgent:
 
-    def __init__(self, profile: ProfileLike, tools: list[ToolLike], model: str, reasoning_effort: str | None = None):
-        self.openai = OpenAI()
+    def __init__(self, profile: ProfileLike, tools: list[ToolLike],
+                 providers: list[Provider]):
         self.profile = profile
         self.tools = tools
-        self.model = model
-        self.reasoning_effort = reasoning_effort
+        self.providers = providers
         self._tool_map = {t.name: t for t in tools}
 
     def system_prompt(self):
@@ -69,6 +77,30 @@ class ChatAgent:
             })
         return results
 
+    def _complete(self, messages, preferred=None):
+        """Try providers in order, return first successful response."""
+        ordered = []
+        if preferred:
+            ordered.append(preferred)
+        for p in self.providers:
+            if p not in ordered:
+                ordered.append(p)
+        for provider in ordered:
+            try:
+                kwargs = {
+                    "model": provider.model,
+                    "messages": messages,
+                    "tools": [t.to_schema() for t in self.tools],
+                }
+                if provider.reasoning_effort:
+                    kwargs["reasoning_effort"] = provider.reasoning_effort
+                response = provider.client.chat.completions.create(**kwargs)
+                return response, provider
+            except Exception as e:
+                print(f"Provider '{provider.name}' failed: {e}", flush=True)
+                continue
+        raise RuntimeError("All providers failed")
+
     def chat(self, message, history):
         messages = (
             [{"role": "system", "content": self.system_prompt()}]
@@ -76,15 +108,9 @@ class ChatAgent:
             + [{"role": "user", "content": message}]
         )
         done = False
+        active = None
         while not done:
-            kwargs = {
-                "model": self.model,
-                "messages": messages,
-                "tools": [t.to_schema() for t in self.tools],
-            }
-            if self.reasoning_effort:
-                kwargs["reasoning_effort"] = self.reasoning_effort
-            response = self.openai.chat.completions.create(**kwargs)
+            response, active = self._complete(messages, active)
             if response.choices[0].finish_reason == "tool_calls":
                 msg = response.choices[0].message
                 messages.append(msg)
