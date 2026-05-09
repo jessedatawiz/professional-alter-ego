@@ -16,3 +16,4 @@ class Config:
         self.profile_name = os.getenv("PROFILE_NAME", "Jesse Rodrigues")
         self.linkedin_path = os.getenv("LINKEDIN_PATH", "me/linkedin.pdf")
         self.summary_path = os.getenv("SUMMARY_PATH", "me/summary.txt")
+        self.system_prompt_path = os.getenv("SYSTEM_PROMPT_PATH", "prompts/system.md")

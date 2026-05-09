@@ -76,18 +76,22 @@ def main():
     profile = Profile(cfg.profile_name, cfg.linkedin_path, cfg.summary_path)
     tools = build_tools(pushover)
 
+    # providers in order of use
+    openai_client = OpenAI()
     groq_client = OpenAI(
         base_url="https://api.groq.com/openai/v1",
         api_key=cfg.groq_api_key,
     )
-    openai_client = OpenAI()
 
     providers = [
-        Provider(client=groq_client, model=cfg.groq_model, name="groq"),
         Provider(client=openai_client, model=cfg.openai_model, name="openai",
                  reasoning_effort=cfg.openai_reasoning_effort),
+        Provider(client=groq_client, model=cfg.groq_model, name="groq"),
     ]
-    agent = ChatAgent(profile, tools, providers)
+    with open(cfg.system_prompt_path, "r") as f:
+        system_prompt_template = f.read()
+
+    agent = ChatAgent(profile, tools, providers, system_prompt_template)
     gr.ChatInterface(agent.chat).launch()
 
 

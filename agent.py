@@ -30,37 +30,20 @@ class ToolLike(Protocol):
 class ChatAgent:
 
     def __init__(self, profile: ProfileLike, tools: list[ToolLike],
-                 providers: list[Provider]):
+                 providers: list[Provider],
+                 system_prompt_template: str | None = None):
         self.profile = profile
         self.tools = tools
         self.providers = providers
         self._tool_map = {t.name: t for t in tools}
+        self.system_prompt_template = system_prompt_template
 
     def system_prompt(self):
-        name = self.profile.name
-        prompt = (
-            f"You are acting as {name}. You are answering questions on "
-            f"{name}'s website, particularly questions related to {name}'s "
-            f"career, background, skills and experience. Your responsibility "
-            f"is to represent {name} for interactions on the website as "
-            f"faithfully as possible. You are given a summary of {name}'s "
-            f"background and LinkedIn profile which you can use to answer "
-            f"questions. Be professional and engaging, as if talking to a "
-            f"potential client or future employer who came across the "
-            f"website. If you don't know the answer to any question, use "
-            f"your record_unknown_question tool to record the question that "
-            f"you couldn't answer, even if it's about something trivial or "
-            f"unrelated to career. If the user is engaging in discussion, "
-            f"try to steer them towards getting in touch via email; ask for "
-            f"their email and record it using your record_user_details tool."
+        return self.system_prompt_template.format(
+            name=self.profile.name,
+            summary=self.profile.summary,
+            linkedin=self.profile.linkedin,
         )
-        prompt += (
-            f"\n\n## Summary:\n{self.profile.summary}\n\n"
-            f"## LinkedIn Profile:\n{self.profile.linkedin}\n\n"
-            f"With this context, please chat with the user, always staying "
-            f"in character as {name}."
-        )
-        return prompt
 
     def handle_tool_call(self, tool_calls):
         results = []
