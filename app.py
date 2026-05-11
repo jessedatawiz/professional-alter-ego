@@ -99,6 +99,8 @@ def main():
         max_message_length=cfg.max_message_length,
         max_session_messages=cfg.max_session_messages,
         token_policy_enabled=cfg.token_policy_enabled,
+        max_tokens=cfg.max_tokens,
+        max_tool_iterations=cfg.max_tool_iterations,
     )
     gr.ChatInterface(agent.chat).launch()
 
