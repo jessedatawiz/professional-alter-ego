@@ -38,6 +38,8 @@ class ChatAgent:
         max_message_length: int = 1000,
         max_session_messages: int = 20,
         token_policy_enabled: bool = True,
+        max_tokens: int = 512,
+        max_tool_iterations: int = 5,
     ):
         self.profile = profile
         self.tools = tools
@@ -47,6 +49,8 @@ class ChatAgent:
         self.max_message_length = max_message_length
         self.max_session_messages = max_session_messages
         self.token_policy_enabled = token_policy_enabled
+        self.max_tokens = max_tokens
+        self.max_tool_iterations = max_tool_iterations
         self._session_count = 0
 
     def system_prompt(self):
@@ -85,6 +89,7 @@ class ChatAgent:
                     "model": provider.model,
                     "messages": messages,
                     "tools": [t.to_schema() for t in self.tools],
+                    "max_tokens": self.max_tokens,
                 }
                 if provider.reasoning_effort:
                     kwargs["reasoning_effort"] = provider.reasoning_effort
@@ -116,7 +121,14 @@ class ChatAgent:
         )
         done = False
         active = None
+        iterations = 0
         while not done:
+            iterations += 1
+            if iterations > self.max_tool_iterations:
+                return (
+                    "I'm having trouble answering that right now. "
+                    "Please try rephrasing or ask a different question."
+                )
             response, active = self._complete(messages, active)
             if response.choices[0].finish_reason == "tool_calls":
                 msg = response.choices[0].message
