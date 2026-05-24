@@ -55,6 +55,3 @@ class Config:
             "PHOENIX_PROJECT_DESCRIPTION",
             "Chatbot emulating Jesse's professional profile (RAG over me/ docs).",
         )
-        self.phoenix_working_dir = os.getenv(
-            "PHOENIX_WORKING_DIR", "storage/phoenix"
-        )
