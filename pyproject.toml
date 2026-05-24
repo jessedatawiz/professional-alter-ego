@@ -18,6 +18,7 @@ dependencies = [
     "qdrant-client",
     "arize-phoenix",
     "openinference-instrumentation-llama-index",
+    "openinference-instrumentation-openai",
 ]
 
 [dependency-groups]

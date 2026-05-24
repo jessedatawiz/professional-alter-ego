@@ -98,7 +98,12 @@ def build_tools(pushover: Notifiable, knowledge_base: KnowledgeBase):
 
 def main():
     cfg = Config()
-    setup_phoenix(cfg.phoenix_enabled)
+    setup_phoenix(
+        cfg.phoenix_enabled,
+        cfg.phoenix_project_name,
+        cfg.phoenix_project_description,
+        cfg.phoenix_working_dir,
+    )
     pushover = PushoverClient(cfg.pushover_token, cfg.pushover_user)
     profile = Profile(cfg.profile_name)
     knowledge_base = KnowledgeBase(
