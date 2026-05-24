@@ -8,7 +8,7 @@ sdk_version: 6.14.0
 app_file: app.py
 pinned: false
 license: apache-2.0
-short_description: A chatbot that emulates my professional profile, with RAG over my background docs.
+short_description: A chatbot that emulates my professional profile.
 ---
 
 # professional-alter-ego

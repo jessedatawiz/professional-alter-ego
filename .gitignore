@@ -218,4 +218,6 @@ __marimo__/
 .streamlit/secrets.toml
 
 # Local vector store
-storage/
+# NOTE: storage/ is committed so the prebuilt Qdrant index ships to the HF Space.
+# storage/
+storage/qdrant/.lock

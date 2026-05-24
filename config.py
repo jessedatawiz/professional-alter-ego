@@ -34,10 +34,10 @@ class Config:
             os.getenv("TOKEN_POLICY_ENABLED", "true").lower() == "true"
         )
         self.max_tokens = int(
-            os.getenv("MAX_TOKENS", "512")
+            os.getenv("MAX_TOKENS", "30000")
         )
         self.max_tool_iterations = int(
-            os.getenv("MAX_TOOL_ITERATIONS", "5")
+            os.getenv("MAX_TOOL_ITERATIONS", "10")
         )
         self.docs_dir = os.getenv("DOCS_PATH", "me")
         self.embedding_model = os.getenv(
