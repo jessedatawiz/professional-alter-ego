@@ -1,12 +1,46 @@
-def setup_phoenix(enabled: bool) -> None:
-    """Launch a local Phoenix app and trace LlamaIndex spans."""
+def setup_phoenix(
+    enabled: bool,
+    project_name: str = "default",
+    description: str | None = None,
+    working_dir: str | None = None,
+) -> None:
+    """Launch a local Phoenix app and trace LlamaIndex + OpenAI spans.
+
+    Instrumenting the OpenAI SDK captures chat-completion token usage
+    (prompt/completion), which Phoenix surfaces as token counts and cost.
+    Traces are grouped under `project_name`; the project id is assigned by
+    Phoenix and logged for reference. Setting `working_dir` makes Phoenix
+    persist traces to a SQLite database there, surviving restarts.
+    """
     if not enabled:
         return
 
+    import os
+    from pathlib import Path
+
+    # Must be set before importing phoenix so it persists to disk (SQLite)
+    # instead of the default in-memory store.
+    if working_dir:
+        Path(working_dir).mkdir(parents=True, exist_ok=True)
+        os.environ["PHOENIX_WORKING_DIR"] = working_dir
+
     import phoenix as px
     from openinference.instrumentation.llama_index import LlamaIndexInstrumentor
+    from openinference.instrumentation.openai import OpenAIInstrumentor
+    from phoenix.client import Client
     from phoenix.otel import register
 
     px.launch_app()
-    tracer_provider = register()
+
+    client = Client()
+    try:
+        project = client.projects.get(project_name=project_name)
+    except Exception:
+        project = client.projects.create(
+            name=project_name, description=description
+        )
+    print(f"Phoenix project '{project_name}' (id={project.get('id')})", flush=True)
+
+    tracer_provider = register(project_name=project_name)
     LlamaIndexInstrumentor().instrument(tracer_provider=tracer_provider)
+    OpenAIInstrumentor().instrument(tracer_provider=tracer_provider)

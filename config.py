@@ -48,3 +48,13 @@ class Config:
         self.phoenix_enabled = (
             os.getenv("PHOENIX_ENABLED", "true").lower() == "true"
         )
+        self.phoenix_project_name = os.getenv(
+            "PHOENIX_PROJECT_NAME", "professional-alter-ego"
+        )
+        self.phoenix_project_description = os.getenv(
+            "PHOENIX_PROJECT_DESCRIPTION",
+            "Chatbot emulating Jesse's professional profile (RAG over me/ docs).",
+        )
+        self.phoenix_working_dir = os.getenv(
+            "PHOENIX_WORKING_DIR", "storage/phoenix"
+        )
