@@ -120,7 +120,8 @@ def main():
 
     providers = [
         Provider(client=openai_client, model=cfg.openai_model, name="openai",
-                 reasoning_effort=cfg.openai_reasoning_effort),
+                 reasoning_effort=cfg.openai_reasoning_effort,
+                 max_tokens_param=cfg.openai_max_tokens_param),
         Provider(client=groq_client, model=cfg.groq_model, name="groq"),
     ]
     with open(cfg.system_prompt_path, "r") as f:
