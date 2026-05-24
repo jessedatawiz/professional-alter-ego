@@ -102,7 +102,6 @@ def main():
         cfg.phoenix_enabled,
         cfg.phoenix_project_name,
         cfg.phoenix_project_description,
-        cfg.phoenix_working_dir,
     )
     pushover = PushoverClient(cfg.pushover_token, cfg.pushover_user)
     profile = Profile(cfg.profile_name)
