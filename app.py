@@ -1,9 +1,9 @@
-import gradio as gr
 from openai import OpenAI
 from typing import Protocol
 
 from config import Config
 from agent import ChatAgent, Provider
+from interface import launch_interface
 from user_profile import Profile
 from pushover import PushoverClient
 from tools import Tool
@@ -142,7 +142,7 @@ def main():
         max_tokens=cfg.max_tokens,
         max_tool_iterations=cfg.max_tool_iterations,
     )
-    gr.ChatInterface(agent.chat).launch()
+    launch_interface(agent.chat, cfg)
 
 
 if __name__ == "__main__":

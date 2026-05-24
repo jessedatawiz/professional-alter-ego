@@ -17,6 +17,10 @@ class Config:
             "OPENAI_MAX_TOKENS_PARAM", "max_completion_tokens"
         )
         self.profile_name = os.getenv("PROFILE_NAME", "Jesse Rodrigues")
+        self.ui_title = os.getenv("UI_TITLE", f"Chat with {self.profile_name}")
+        self.ui_description = os.getenv("UI_DESCRIPTION", "")
+        self.ui_theme = os.getenv("UI_THEME", "soft")
+        self.ui_profile_doc = os.getenv("UI_PROFILE_DOC", "me/about.md")
         self.linkedin_path = os.getenv("LINKEDIN_PATH", "me/linkedin.pdf")
         self.summary_path = os.getenv("SUMMARY_PATH", "me/summary.txt")
         self.system_prompt_path = os.getenv("SYSTEM_PROMPT_PATH", "prompts/system.md")
