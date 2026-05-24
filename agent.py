@@ -15,6 +15,7 @@ class Provider:
     model: str
     name: str = ""
     reasoning_effort: str | None = None
+    max_tokens_param: str = "max_tokens"
 
 
 class ToolLike(Protocol):
@@ -83,7 +84,7 @@ class ChatAgent:
                     "model": provider.model,
                     "messages": messages,
                     "tools": [t.to_schema() for t in self.tools],
-                    "max_tokens": self.max_tokens,
+                    provider.max_tokens_param: self.max_tokens,
                 }
                 if provider.reasoning_effort:
                     kwargs["reasoning_effort"] = provider.reasoning_effort
@@ -108,9 +109,12 @@ class ChatAgent:
                 )
             self._session_count += 1
 
+        clean_history = [
+            {"role": m["role"], "content": m["content"]} for m in history
+        ]
         messages = (
             [{"role": "system", "content": self.system_prompt()}]
-            + history
+            + clean_history
             + [{"role": "user", "content": message}]
         )
         done = False

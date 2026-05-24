@@ -13,6 +13,9 @@ class Config:
         self.groq_model = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
         self.openai_model = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
         self.openai_reasoning_effort = os.getenv("OPENAI_REASONING_EFFORT")
+        self.openai_max_tokens_param = os.getenv(
+            "OPENAI_MAX_TOKENS_PARAM", "max_completion_tokens"
+        )
         self.profile_name = os.getenv("PROFILE_NAME", "Jesse Rodrigues")
         self.linkedin_path = os.getenv("LINKEDIN_PATH", "me/linkedin.pdf")
         self.summary_path = os.getenv("SUMMARY_PATH", "me/summary.txt")
