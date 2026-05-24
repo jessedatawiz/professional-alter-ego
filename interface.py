@@ -11,6 +11,8 @@ footer { display: none !important; }
 #profile-card { padding: 4px 8px; }
 #profile-card h1 { font-size: 1.25rem; margin-bottom: 0.25rem; }
 #profile-card h2 { font-size: 0.95rem; opacity: 0.7; }
+#profile-card h2:last-of-type { font-size: 0.8rem; }
+#profile-card ul:last-of-type { font-size: 0.8rem; opacity: 0.7; }
 """
 
 
