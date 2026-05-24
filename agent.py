@@ -7,8 +7,6 @@ from openai import OpenAI
 
 class ProfileLike(Protocol):
     name: str
-    summary: str
-    linkedin: str
 
 
 @dataclass
@@ -54,11 +52,7 @@ class ChatAgent:
         self._session_count = 0
 
     def system_prompt(self):
-        return self.system_prompt_template.format(
-            name=self.profile.name,
-            summary=self.profile.summary,
-            linkedin=self.profile.linkedin,
-        )
+        return self.system_prompt_template.format(name=self.profile.name)
 
     def handle_tool_call(self, tool_calls):
         results = []

@@ -11,6 +11,13 @@ dependencies = [
     "pypdf==6.10.2",
     "openai==2.36.0",
     "openai-agents==0.17.0",
+    "llama-index-core",
+    "llama-index-embeddings-openai",
+    "llama-index-vector-stores-qdrant",
+    "llama-index-readers-file",
+    "qdrant-client",
+    "arize-phoenix",
+    "openinference-instrumentation-llama-index",
 ]
 
 [dependency-groups]

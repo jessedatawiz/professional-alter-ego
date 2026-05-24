@@ -7,6 +7,8 @@ from agent import ChatAgent, Provider
 from user_profile import Profile
 from pushover import PushoverClient
 from tools import Tool
+from knowledge_base import KnowledgeBase
+from observability import setup_phoenix
 
 
 class Notifiable(Protocol):
@@ -14,7 +16,7 @@ class Notifiable(Protocol):
     def send(self, message: str) -> None: ...
 
 
-def build_tools(pushover: Notifiable):
+def build_tools(pushover: Notifiable, knowledge_base: KnowledgeBase):
     record_user_details = Tool(
         name="record_user_details",
         description=(
@@ -67,14 +69,47 @@ def build_tools(pushover: Notifiable):
         handler=lambda question: pushover.send(f"Recording {question}"),
     )
 
-    return [record_user_details, record_unknown_question]
+    search_profile = Tool(
+        name="search_profile",
+        description=(
+            "Search the profile owner's professional documents (summary, "
+            "LinkedIn, etc.) for details relevant to the user's question. "
+            "Returns the most relevant excerpts."
+        ),
+        parameters={
+            "type": "object",
+            "properties": {
+                "query": {
+                    "type": "string",
+                    "description": (
+                        "What to look up about the profile owner's "
+                        "background, skills, or experience"
+                    ),
+                },
+            },
+            "required": ["query"],
+            "additionalProperties": False,
+        },
+        handler=lambda query: {"context": knowledge_base.retrieve(query)},
+    )
+
+    return [record_user_details, record_unknown_question, search_profile]
 
 
 def main():
     cfg = Config()
+    setup_phoenix(cfg.phoenix_enabled)
     pushover = PushoverClient(cfg.pushover_token, cfg.pushover_user)
-    profile = Profile(cfg.profile_name, cfg.linkedin_path, cfg.summary_path)
-    tools = build_tools(pushover)
+    profile = Profile(cfg.profile_name)
+    knowledge_base = KnowledgeBase(
+        cfg.docs_dir,
+        cfg.qdrant_path,
+        cfg.qdrant_collection,
+        cfg.embedding_model,
+        cfg.rag_top_k,
+        rebuild=cfg.rag_rebuild,
+    )
+    tools = build_tools(pushover, knowledge_base)
 
     # providers in order of use
     openai_client = OpenAI()

@@ -32,3 +32,16 @@ class Config:
         self.max_tool_iterations = int(
             os.getenv("MAX_TOOL_ITERATIONS", "5")
         )
+        self.docs_dir = os.getenv("DOCS_PATH", "me")
+        self.embedding_model = os.getenv(
+            "EMBEDDING_MODEL", "text-embedding-3-small"
+        )
+        self.qdrant_path = os.getenv("QDRANT_PATH", "storage/qdrant")
+        self.qdrant_collection = os.getenv("QDRANT_COLLECTION", "profile")
+        self.rag_top_k = int(os.getenv("RAG_TOP_K", "4"))
+        self.rag_rebuild = (
+            os.getenv("RAG_REBUILD", "false").lower() == "true"
+        )
+        self.phoenix_enabled = (
+            os.getenv("PHOENIX_ENABLED", "true").lower() == "true"
+        )
