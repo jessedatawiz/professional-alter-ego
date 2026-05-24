@@ -1,6 +1,6 @@
 [project]
 name = "professional-alter-ego"
-version = "0.2.0"
+version = "1.0.0"
 description = "A chatbot that emulates my professional me!"
 readme = "README.md"
 requires-python = ">=3.12"
