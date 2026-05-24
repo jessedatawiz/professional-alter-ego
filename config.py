@@ -34,7 +34,7 @@ class Config:
             os.getenv("TOKEN_POLICY_ENABLED", "true").lower() == "true"
         )
         self.max_tokens = int(
-            os.getenv("MAX_TOKENS", "30000")
+            os.getenv("MAX_TOKENS", "8192")
         )
         self.max_tool_iterations = int(
             os.getenv("MAX_TOOL_ITERATIONS", "10")

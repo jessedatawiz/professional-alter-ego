@@ -78,6 +78,7 @@ def build_interface(fn: Callable, cfg: Config) -> gr.Blocks:
                         "What technologies do you specialize in?",
                         "Tell me about a recent project you've worked on.",
                     ],
+                    cache_examples=False,
                 )
     return demo
 
